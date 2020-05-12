@@ -13,10 +13,10 @@ The architecture template will deploy for you the following components:
 
 Each component will have its own Docker Volume for managing the storage:
 
-* aps-db-volume
-* aps-admin-db-volume
-* aps-contentstore-volume
-* aps-es-volume
+* `aps-db-volume`: database storage for activiti-app
+* `aps-contentstore-volume`: contentstore for attachments
+* `aps-es-volume`: file storage for search indexes
+* `aps-admin-db-volume`: database storage for activiti-admin
 
 The provided run script will create these volumes for you.
 
@@ -63,14 +63,14 @@ Put your license in the activiti-license folder.
 
 The structure of the project allows you to configure and install extensions against the APS platform as the following:
 
-* admin/tomcat/conf: put here all the Tomcat configuration files
-* logging: change your logging strategy here using logback.xml
-* properties: change here your activiti-app and activiti-admin properties
-* activiti-license: put here your valid APS license
-* docker-compose.yml: change here your deployment structure
-* Dockerfile: change here your container build for activiti-app
-* Dockerfile-admin: change here your continer build for activiti-admin
-* extensions: put here your extensions (JARs or activiti-app.war)
+* `admin/tomcat/conf`: put here all the Tomcat configuration files
+* `logging`: change your logging strategy here using logback.xml
+* `properties`: change here your activiti-app and activiti-admin properties
+* `activiti-license`: put here your valid APS license
+* `docker-compose.yml`: change here your deployment structure
+* `Dockerfile`: change here your container build for activiti-app
+* `Dockerfile-admin`: change here your continer build for activiti-admin
+* `extensions`: put here your extensions (JARs or activiti-app.war)
 
 For more informations about how to build extensions please see [Alfresco Process Services SDK](https://github.com/OpenPj/alfresco-process-services-project-sdk).
 
@@ -78,8 +78,8 @@ For more informations about how to build extensions please see [Alfresco Process
 
 A run script is provided in two formats:
 
-* run.sh for Linux and Mac users
-* run.bat for Windows users
+* `run.sh` for Linux and Mac users
+* `run.bat` for Windows users
 
 Run the following command to deploy:
 

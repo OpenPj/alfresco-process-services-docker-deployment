@@ -1,0 +1,76 @@
+version: '3.8'
+services:
+  process:
+    build: .
+    environment:
+      JAVA_OPTS: " -Xms256m -Xmx1g"
+    ports:
+    - 8080:8080
+    links:
+      - postgres:postgres
+      - elasticsearch:elasticsearch
+    depends_on:
+      - postgres
+      - elasticsearch
+    volumes:
+      - aps-contentstore-volume:/act_data
+
+  process-admin:
+    build:
+      context: .
+      dockerfile: Dockerfile-admin
+    environment:
+      JAVA_OPTS: " -Xms256m -Xmx512m"
+    ports:
+    - 9090:9090
+    links:
+      - postgres-admin:postgres-admin
+      - process:process
+    depends_on:
+      - postgres-admin
+
+  elasticsearch:
+    image: elasticsearch:7.6.0
+    environment:
+      discovery.type: single-node
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    ports:
+      - 9300:9300
+      - 9200:9200
+    volumes:
+      - aps-es-volume:/usr/share/elasticsearch/data
+
+  postgres:
+    image: postgres:10.9
+    environment:
+      POSTGRES_DB: activiti
+      POSTGRES_USER: alfresco
+      POSTGRES_PASSWORD: alfresco
+    ports:
+      - 5432:5432
+    volumes:
+      - aps-db-volume:/var/lib/postgresql/data
+
+  postgres-admin:
+     image: postgres:10.9
+     environment:
+       POSTGRES_DB: activiti-admin
+       POSTGRES_USER: alfresco
+       POSTGRES_PASSWORD: alfresco
+     ports:
+       - 5433:5433
+     expose:
+     - "5433"
+     volumes:
+       - aps-admin-db-volume:/var/lib/postgresql/data
+     command: -p 5433
+
+volumes:
+    aps-db-volume:
+      external: true
+    aps-admin-db-volume:
+      external: true
+    aps-contentstore-volume:
+      external: true
+    aps-es-volume:
+      external: true

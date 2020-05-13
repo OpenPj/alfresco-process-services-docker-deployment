@@ -2,7 +2,7 @@
 Docker Compose template for deploying the Alfresco Process Services Platform.
 
 The goal of this project is to help system administrators to manage a APS infrastructure deployed with Docker where they also need to configure parameters or install extensions.
-For developers interested to build extensions please see the [Alfresco Process Services SDK](https://github.com/OpenPj/alfresco-process-services-project-sdk):
+For developers interested to build extensions please see the [Alfresco Process Services SDK](https://github.com/OpenPj/alfresco-process-services-project-sdk).
 
 The architecture template will deploy for you the following components:
 

@@ -7,8 +7,8 @@ For developers interested to build extensions please see the [Alfresco Process S
 
 The architecture template will deploy for you the following components:
 
-* activiti-app 2.0.1
-* activiti-admin 2.0.1
+* activiti-app 2.1.0
+* activiti-admin 2.1.0
 * ElasticSearch 7.13.2
 * PostgreSQL 13.1
 

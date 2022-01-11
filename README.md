@@ -1,3 +1,4 @@
+lucastancapiano@MacBook-Pro alfresco-process-services-docker-deployment % cat README.md 
 # Alfresco Process Services Docker Deployment
 Docker Compose template for deploying the Alfresco Process Services Platform.
 
@@ -6,10 +7,10 @@ For developers interested to build extensions please see the [Alfresco Process S
 
 The architecture template will deploy for you the following components:
 
-* activiti-app 1.11.0
-* activiti-admin 1.11.0
-* ElasticSearch 7.6.0
-* PostgreSQL 10.9
+* activiti-app 2.1.0
+* activiti-admin 2.1.0
+* ElasticSearch 7.13.2
+* PostgreSQL 13.1
 
 Each component will have its own Docker Volume for managing the storage:
 
@@ -39,7 +40,7 @@ Before using this project you have to configure the following components:
 
 ```
 $ docker -v
-Docker version 19.03.8, build afacb8b
+Docker version 20.10.8, build afacb8b
 ``` 
 
 3. Docker Compose is included as part of Windows and Mac Docker installers.
@@ -52,7 +53,7 @@ For Linux-based users, install both the component separately with the following:
 
 ```
 $ docker-compose -v
-docker-compose version 1.25.5, build 8a1c60f6
+docker-compose version 1.29.2, build 8a1c60f6
 ```
 
 ### APS Valid License
@@ -104,3 +105,4 @@ Return in tail with:
 ```
 ./run.sh tail
 ```
+lucastancapiano@MacBook-Pro alfresco-process-services-docker-deployment % 

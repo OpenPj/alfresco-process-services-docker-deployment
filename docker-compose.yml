@@ -30,7 +30,7 @@ services:
       - postgres-admin
 
   elasticsearch:
-    image: elasticsearch:7.6.0
+    image: elasticsearch:7.13.2
     environment:
       discovery.type: single-node
       ES_JAVA_OPTS: -Xms512m -Xmx512m
@@ -41,7 +41,7 @@ services:
       - aps-es-volume:/usr/share/elasticsearch/data
 
   postgres:
-    image: postgres:10.9
+    image: postgres:13.1
     environment:
       POSTGRES_DB: activiti
       POSTGRES_USER: alfresco
@@ -52,7 +52,7 @@ services:
       - aps-db-volume:/var/lib/postgresql/data
 
   postgres-admin:
-     image: postgres:10.9
+     image: postgres:13.1
      environment:
        POSTGRES_DB: activiti-admin
        POSTGRES_USER: alfresco

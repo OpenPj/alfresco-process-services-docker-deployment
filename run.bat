@@ -29,10 +29,10 @@ echo "Usage: %0 {start|stop|purge|tail}"
 EXIT /B %ERRORLEVEL%
 
 :start
-    docker volume create aps-db-volume
-    docker volume create aps-admin-db-volume
-    docker volume create aps-contentstore-volume
-	docker volume create aps-es-volume
+    docker volume create aps-db-sa-volume
+    docker volume create aps-admin-db-sa-volume
+    docker volume create aps-contentstore-sa-volume
+	docker volume create aps-es-sa-volume
     docker-compose up --build -d
 EXIT /B 0
 :down
@@ -45,8 +45,8 @@ EXIT /B 0
     docker-compose logs --tail="all"
 EXIT /B 0
 :purge
-    docker volume rm aps-db-volume
-    docker volume rm aps-admin-db-volume
-    docker volume rm aps-contentstore-volume
-	docker volume rm aps-es-volume
+    docker volume rm aps-db-sa-volume
+    docker volume rm aps-admin-db-sa-volume
+    docker volume rm aps-contentstore-sa-volume
+	docker volume rm aps-es-sa-volume
 EXIT /B 0

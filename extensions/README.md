@@ -1,3 +1,3 @@
 # Extensions
 
-Put here your APS extensions (activiti-extensions.jar or activiti-app.war)
+Put here your activiti-app and activiti-admin WARs and APS extensions (activiti-app.war, activiti-admin.war and activiti-extensions.jar)

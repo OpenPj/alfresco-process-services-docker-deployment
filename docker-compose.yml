@@ -1,35 +1,42 @@
-version: '3.8'
+version: '3.9'
 services:
   process:
     build: .
+    hostname: process
+    container_name: aps_process
+    networks:
+     - aps-network    
     environment:
-      JAVA_OPTS: " -Xms256m -Xmx1g"
+     JAVA_OPTS: " -Xms256m -Xmx1g"
     ports:
     - 8080:8080
-    links:
-      - postgres:postgres
-      - elasticsearch:elasticsearch
     depends_on:
       - postgres
       - elasticsearch
+      - process-admin
     volumes:
-      - aps-contentstore-volume:/act_data
+      - aps-contentstore-sa-volume:/act_data
 
   process-admin:
     build:
       context: .
       dockerfile: Dockerfile-admin
+    hostname: process-admin
+    container_name: aps_process_admin
+    networks:
+     - aps-network  
     environment:
       JAVA_OPTS: " -Xms256m -Xmx512m"
     ports:
     - 9090:9090
-    links:
-      - postgres-admin:postgres-admin
-      - process:process
     depends_on:
       - postgres-admin
 
   elasticsearch:
+    hostname: elasticsearch
+    container_name: aps_elasticsearch
+    networks:
+     - aps-network  
     image: elasticsearch:7.13.2
     environment:
       discovery.type: single-node
@@ -38,9 +45,13 @@ services:
       - 9300:9300
       - 9200:9200
     volumes:
-      - aps-es-volume:/usr/share/elasticsearch/data
+      - aps-es-sa-volume:/usr/share/elasticsearch/data
 
   postgres:
+    hostname: postgres
+    container_name: aps_postgres
+    networks:
+     - aps-network  
     image: postgres:13.1
     environment:
       POSTGRES_DB: activiti
@@ -49,9 +60,13 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - aps-db-volume:/var/lib/postgresql/data
+      - aps-db-sa-volume:/var/lib/postgresql/data
 
   postgres-admin:
+     hostname: postgres-admin
+     container_name: aps_postgres_admin
+     networks:
+     - aps-network  
      image: postgres:13.1
      environment:
        POSTGRES_DB: activiti-admin
@@ -62,15 +77,19 @@ services:
      expose:
      - "5433"
      volumes:
-       - aps-admin-db-volume:/var/lib/postgresql/data
+       - aps-admin-db-sa-volume:/var/lib/postgresql/data
      command: -p 5433
 
+networks:
+    aps-network:
+     name: aps-network
+
 volumes:
-    aps-db-volume:
+    aps-db-sa-volume:
       external: true
-    aps-admin-db-volume:
+    aps-admin-db-sa-volume:
       external: true
-    aps-contentstore-volume:
+    aps-contentstore-sa-volume:
       external: true
-    aps-es-volume:
+    aps-es-sa-volume:
       external: true

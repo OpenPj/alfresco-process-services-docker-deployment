@@ -1,17 +1,25 @@
-FROM alfresco/process-services:2.1.0
+FROM tomcat:9.0.56-jdk11-openjdk
 
 ARG TOMCAT_DIR=/usr/local/tomcat
+ARG USERNAME=alfresco
+ARG USERID=33007
 
 USER root
 
-#Uncomment the following lines for deploying extensions
-#RUN rm -rf $TOMCAT_DIR/webapps/activiti-app
-#COPY extensions/aps-extensions-jar-${project.version}.jar $TOMCAT_DIR/webapps/activiti-app/WEB-INF/lib
-#COPY extensions/activiti-app.war $TOMCAT_DIR/webapps
+RUN useradd -c "Alfresco APS" -M -s "/bin/bash" -u "${USERID}" -o "${USERNAME}"
 
-COPY logging/logback.xml $TOMCAT_DIR/lib
+RUN rm -rf $TOMCAT_DIR/webapps/activiti-app
 
-COPY properties/activiti-app.properties $TOMCAT_DIR/lib
-COPY properties/activiti-ldap.properties $TOMCAT_DIR/lib
+#Uncomment below if you need to deploy an APS Extensions JAR
+#COPY --chown=${USERNAME} extensions/aps-extensions-jar-${project.version}.jar $TOMCAT_DIR/lib
 
-COPY activiti-license/*.* $TOMCAT_DIR/lib/
+COPY --chown=${USERNAME} jdbc-driver/*.* $TOMCAT_DIR/lib
+COPY --chown=${USERNAME} logging/logback.xml $TOMCAT_DIR/lib
+COPY --chown=${USERNAME} properties/activiti-app.properties $TOMCAT_DIR/lib
+COPY --chown=${USERNAME} properties/activiti-ldap.properties $TOMCAT_DIR/lib
+COPY --chown=${USERNAME} extensions/activiti-app.war $TOMCAT_DIR/webapps
+COPY --chown=${USERNAME} activiti-license/*.* $TOMCAT_DIR/lib/
+
+RUN chown ${USERNAME}:${USERNAME} -R ${TOMCAT_DIR}
+
+USER ${USERNAME}

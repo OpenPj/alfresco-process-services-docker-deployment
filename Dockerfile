@@ -13,7 +13,7 @@ RUN rm -rf $TOMCAT_DIR/webapps/activiti-app
 #Uncomment below if you need to deploy an APS Extensions JAR
 #COPY --chown=${USERNAME} extensions/aps-extensions-jar-${project.version}.jar $TOMCAT_DIR/lib
 
-COPY --chown=${USERNAME} jdbc-driver/*.* $TOMCAT_DIR/lib
+COPY --chown=${USERNAME} jdbc-driver/*.* $TOMCAT_DIR/lib/
 COPY --chown=${USERNAME} logging/logback.xml $TOMCAT_DIR/lib
 COPY --chown=${USERNAME} properties/activiti-app.properties $TOMCAT_DIR/lib
 COPY --chown=${USERNAME} properties/activiti-ldap.properties $TOMCAT_DIR/lib

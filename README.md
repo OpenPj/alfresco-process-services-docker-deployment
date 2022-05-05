@@ -107,3 +107,6 @@ Return in tail with:
 ```
 ./run.sh tail
 ```
+
+# Enterprise support
+Official maintenance and support of this project is delivered by Zia Consulting

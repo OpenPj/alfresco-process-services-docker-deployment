@@ -3,6 +3,7 @@ FROM tomcat:9.0.56-jdk11-openjdk
 ARG TOMCAT_DIR=/usr/local/tomcat
 ARG USERNAME=alfresco
 ARG USERID=33007
+ARG CONTENT_STORAGE_DIR=/act_data
 
 USER root
 
@@ -21,5 +22,8 @@ COPY --chown=${USERNAME} extensions/activiti-app.war $TOMCAT_DIR/webapps
 COPY --chown=${USERNAME} activiti-license/*.* $TOMCAT_DIR/lib/
 
 RUN chown ${USERNAME}:${USERNAME} -R ${TOMCAT_DIR}
+
+RUN mkdir -p ${CONTENT_STORAGE_DIR}
+RUN chown ${USERNAME}:${USERNAME} ${CONTENT_STORAGE_DIR}
 
 USER ${USERNAME}

@@ -6,9 +6,9 @@ For developers interested to build extensions please see the [Alfresco Process S
 
 The architecture template will help you deploying APS for you with the following tested components:
 
-* activiti-app 2.1.0
-* activiti-admin 2.1.0
-* ElasticSearch 7.13.2
+* activiti-app 2.3.0
+* activiti-admin 2.3.0
+* ElasticSearch 7.17.1
 * PostgreSQL 13.1
 
 Each component will have its own Docker Volume for managing the storage:
@@ -87,7 +87,7 @@ A run script is provided in two formats:
 Run the following command to deploy:
 
 ```
-./run.sh start
+./run.sh build_start
 ```
 
 Stop with:

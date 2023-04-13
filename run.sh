@@ -1,11 +1,23 @@
 #!/bin/sh
 
-start() {
+build() {
+    docker-compose build
+}
+
+build_start() {
     docker volume create aps-db-sa-volume
     docker volume create aps-admin-db-sa-volume
     docker volume create aps-contentstore-sa-volume
 	docker volume create aps-es-sa-volume
     docker-compose up --build -d
+}
+
+start() {
+    docker volume create aps-db-sa-volume
+    docker volume create aps-admin-db-sa-volume
+    docker volume create aps-contentstore-sa-volume
+	docker volume create aps-es-sa-volume
+    docker-compose up -d
 }
 
 down() {
@@ -28,6 +40,13 @@ tail_all() {
 }
 
 case "$1" in
+  build)
+    build
+    ;;
+  build_start)
+    build_start
+    tail
+    ;;
   start)
     start
     tail
@@ -43,5 +62,5 @@ case "$1" in
     tail
     ;;
   *)
-    echo "Usage: $0 {start|stop|purge|tail}"
+    echo "Usage: $0 {build_start | build | start | stop | purge | tail}"
 esac

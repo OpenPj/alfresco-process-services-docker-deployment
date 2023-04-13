@@ -37,7 +37,7 @@ services:
     container_name: aps_elasticsearch
     networks:
      - aps-network  
-    image: elasticsearch:7.13.2
+    image: elasticsearch:7.17.1
     environment:
       discovery.type: single-node
       ES_JAVA_OPTS: -Xms512m -Xmx512m

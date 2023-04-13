@@ -1,10 +1,19 @@
 @ECHO OFF
 
 IF [%1]==[] (
-    echo "Usage: %0 {start|stop|purge|tail}"
+    echo "Usage: %0 {build_start | build | start | stop | purge | tail}"
     GOTO END
 )
 
+IF %1==build (
+    CALL :build
+    GOTO END
+)
+IF %1==build_start (
+    CALL :build_start
+    CALL :tail
+    GOTO END
+)
 IF %1==start (
     CALL :start
     CALL :tail
@@ -24,16 +33,26 @@ IF %1==tail (
     GOTO END
 )
 
-echo "Usage: %0 {start|stop|purge|tail}"
+echo "Usage: %0 {build_start | build | start | stop | purge | tail}"
 :END
 EXIT /B %ERRORLEVEL%
 
-:start
+:build
+    docker-compose build
+EXIT /B 0
+:build_start
     docker volume create aps-db-sa-volume
     docker volume create aps-admin-db-sa-volume
     docker volume create aps-contentstore-sa-volume
 	docker volume create aps-es-sa-volume
     docker-compose up --build -d
+EXIT /B 0
+:start
+    docker volume create aps-db-sa-volume
+    docker volume create aps-admin-db-sa-volume
+    docker volume create aps-contentstore-sa-volume
+	docker volume create aps-es-sa-volume
+    docker-compose up -d
 EXIT /B 0
 :down
     docker-compose -f "%COMPOSE_FILE_PATH%" down
